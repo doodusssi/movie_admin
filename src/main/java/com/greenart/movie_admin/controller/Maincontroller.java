@@ -9,4 +9,8 @@ public class Maincontroller {
     public String getMain() {
         return "/index";
     }
+    @GetMapping("/summary")
+    public String getSummary(){
+        return"/summary";
+    }
 }
