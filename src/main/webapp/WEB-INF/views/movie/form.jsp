@@ -7,55 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script>
-        let movie_seq = '${movieInfo.mi_seq}';
-    </script>
+    
     <script src="/assets/js/movie/add.js"></script>
     
-    <c:if test="${mode == 'modify'}">
-    <script>
-        let genre_no = '${movieInfo.mi_genre_seq}';
-        let viewing_age = '${movieInfo.mi_viewing_age}';
-        let movie_status = '${movieInfo.mi_showing_status}';
-    </script>
-        <c:forEach items="${imgList}" var="item">
-        <script>            
-            movie_imgs.push('${item.mimg_file_name}')
-        </script>    
-        </c:forEach>
-        <c:forEach items="${videoList}" var="item">
-        <script>            
-            movie_trailer_list.push(
-                {
-                    seq:'${item.tvi_seq}',
-                    order:'${item.tvi_order}', 
-                    file:'${item.tvi_file_name}',
-                    ext:'-',
-                    fileSize:'-',
-                    originFileName:'${item.tvi_file_name}'
-                }
-            );
-        </script>    
-        </c:forEach>
-        <c:forEach items="${descList}" var="item" varStatus="stat">
-            <textarea id="contentData${stat.count}" hidden>${item.content}</textarea>
-            <script>            
-            movie_desc_list.push({
-                type:"${item.type}", 
-                content:$("#contentData${stat.count}").val(), 
-                order:"${item.n_order}"});
-        </script>    
-        </c:forEach>
-        <script src="/assets/js/movie/modify.js"></script>
-    </c:if>
     <link rel="stylesheet" href="/assets/css/movie/form.css">
 </head>
 <body>
     <main>
         <h1>영화 정보 <span class="type">추가</span></h1>
-        <c:if test="${mode == 'modify'}">
-            <button id="edit">영화 정보 편집</button>
-        </c:if>
+       
         <div class="basic_info">
             <h1>영화 기본 정보</h1>
             <table>
@@ -71,7 +31,7 @@
                         </td>
                         <td>제목</td>
                         <td>
-                            <input type="text" id="movie_name" value="${movieInfo.mi_title}">
+                            <input type="text" id="movie_name" >
                         </td>
                         <td>관람연령</td>
                         <td>
@@ -84,17 +44,17 @@
                         </td>
                         <td >상영시간</td>
                         <td >
-                            <input type="text" id="running_time" value="${movieInfo.mi_running_time}"><span>분</span>
+                            <input type="text" id="running_time" ><span>분</span>
                         </td>
                     </tr>
                     <tr>
                         <td>국가</td>
                         <td>
-                            <input type="text" id="movie_country" value="${movieInfo.mi_country}"><span></span>
+                            <input type="text" id="movie_country" ><span></span>
                         </td>
                         <td>개봉일</td>
                         <td>
-                            <input type="text" id="opening_dt" value="<fmt:formatDate value="${movieInfo.mi_opening_dt}" pattern="yyyy-MM-dd"/>">
+                            <input type="text" id="opening_dt" >
                         </td>
                         <td>상영여부</td>
                         <td>
@@ -106,7 +66,7 @@
                         </td>
                         <td>연도</td>
                         <td>
-                            <input type="text" id="movie_year" value="${movieInfo.mi_year}">
+                            <input type="text" id="movie_year" >
                         </td>
                     </tr>
                 </tbody>
@@ -149,19 +109,7 @@
                                 <td></td>
                             </tr>
                         </thead>
-                        <tbody>
-                            <c:forEach items="${videoList}" var="item" varStatus="stat">
-                                <tr>
-                                    <td>${stat.count}</td>
-                                    <td>${item.tvi_file_name}</td>
-                                    <td>-</td>
-                                    <td>-Bytes</td>
-                                    <td>
-                                        <button class="delete_trailer" onclick="deleteTrailer('${item.tvi_file_name}','${item.tvi_seq}')">삭제</button>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                            
+                        <tbody>                            
                         </tbody>
                     </table>
                 </div>
@@ -189,13 +137,8 @@
                     </c:forEach>
                     </div>
         </div>
-        <div class="button_area">
-                <c:if test="${mode == 'add'}">
-                    <button id="save">저장</button>
-                </c:if>
-                <c:if test="${mode == 'modify'}">
-                    <button id="modify">수정</button>
-                </c:if>
+        <div class="button_area">                
+                <button id="save">저장</button>
                 <button id="cancel">취소</button>
         </div>
     </main>
