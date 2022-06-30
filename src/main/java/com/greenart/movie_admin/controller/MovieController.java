@@ -53,8 +53,8 @@ public class MovieController {
         model.addAttribute("videoList", movie_mapper.selectMovieTrailerVideosBySeq(movie_no));
 
         model.addAttribute("descList", movie_mapper.selectMovieDescriptionsBySeq(movie_no));
-        
-        return "/movie/form";
+
+        return "/movie/detail";
     }
 }
  

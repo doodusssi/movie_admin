@@ -297,4 +297,3 @@ for (let i = 0; i < movie_desc_list.length; i++) {
     }
     $(".description_list").append(tag);
 }
-

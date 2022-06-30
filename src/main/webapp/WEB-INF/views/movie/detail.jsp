@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     
-    <script src="/assets/js/movie/add.js"></script>
+    <script src="/assets/js/movie/modify.js"></script>
     
     <link rel="stylesheet" href="/assets/css/movie/form.css">
 </head>
