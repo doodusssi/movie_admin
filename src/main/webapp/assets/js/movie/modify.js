@@ -19,13 +19,27 @@ $(function () {
                     alert(result.message);
                     return;
                 }
-                let tag =
-                    '<div class="movie_img" filename="' + result.file + '">' +
-                    '<img src ="/images/movie/' + result.file + '">' +
-                    '<button onClick=deleteImg("' + result.file + '")>&times;</button>' +
-                    '</div>';
-                movie_imgs.push(result.file);
-                $(".movie_image_list").append(tag);
+                let imgData = {
+                    mimg_mi_seq:movie_seq,
+                    mimg_file_name:result.file
+
+                }
+                $.ajax({
+                    url:"/api/movie/add/image",
+                    type:"put",
+                    contentType:"application/json",
+                    data:JSON.stringify(imgData),
+                    success:function(r) {
+                        console.log(r);
+                        let tag =
+                            '<div class="movie_img" filename="' + result.file + '">' +
+                            '<img src ="/images/movie/' + result.file + '">' +
+                            '<button onClick=deleteImg("' + result.file + '", "'+r.seq+'")>&times;</button>' +
+                            '</div>';
+                        movie_imgs.push({seq:r.seq, filename:result.file});
+                        $(".movie_image_list").append(tag);
+                    }
+                })
             },
             error: function (error) {
                 console.log(error);
@@ -121,36 +135,8 @@ $(function () {
             }
         })
     })
-    $("#save").click(function () {
-        if (!confirm("영화 정보를 등록하시겠습니까?")) return;
-        let data = {
-            movie_info: {
-                mi_genre_seq: $("#genre_info option:selected").val(),
-                mi_title: $("#movie_name").val(),
-                mi_viewing_age: $("#viewing_age option:selected").val(),
-                mi_running_time: $("#running_time").val(),
-                mi_country: $("#movie_country").val(),
-                mi_opening_dt: $("#opening_dt").val(),
-                mi_showing_status: $("#movie_status option:selected").val(),
-                mi_year: $("#movie_year").val()
-            },
-            movie_imgs: movie_imgs,
-            movie_desc_list: movie_desc_list,
-            movie_trailer_list: movie_trailer_list
-        }
-        console.log(JSON.stringify(data));
-        $.ajax({
-            url: "/api/movie/add",
-            type: "put",
-            data: JSON.stringify(data),
-            contentType: "application/json",
-            success: function (result) {
-                alert(result.message);
-                location.href = "/movie/list";
 
-            }
-        })
-    })
+    
 })
 
 function deleteTrailer(filename, seq) {
@@ -158,7 +144,7 @@ function deleteTrailer(filename, seq) {
     if (!confirm("해당 트레일러 영상을 삭제하시겠습니까?\n(!주의 : 삭제된 데이터는 되롤릴 수 없습니다.)")) {
         return;
     }
-}
+
 $.ajax({
     url: "/movies/delete/movie_trailer/" + filename,
     type: "delete",
@@ -191,14 +177,14 @@ $.ajax({
     }
 })
 
+}
 
-
-function deleteImg(filename) {
+function deleteImg(filename, seq) {
 
     if (!confirm("영화 이미지를 삭제하시겠습니까?\n(!주의 : 삭제된 데이터는 되롤릴 수 없습니다.)")) {
         return;
     }
-}
+
 $.ajax({
     url: "/images/delete/movie/" + filename,
     type: "delete",
@@ -209,23 +195,23 @@ $.ajax({
             $(".movie_image_list").html("");
             for (let i = 0; i < movie_imgs.length; i++) {
                 let tag =
-                    '<div class="movie_img" filename="' + movie_imgs[i] + '">' +
-                    '<img src ="/images/movie/' + movie_imgs[i] + '">' +
-                    '<button onClick=deleteImg("' + movie_imgs[i] + '")>&times;</button>' +
+                    '<div class="movie_img" filename="' + movie_imgs[i].filename+'","'+movie_imgs[i].seq+'">' +
+                    '<img src ="/images/movie/' + movie_imgs[i].filename+'","'+movie_imgs[i].seq+'">' +
+                    '<button onClick=deleteImg("' + movie_imgs[i].filename+'","'+movie_imgs[i].seq+'")>&times;</button>' +
                     '</div>';
                 $(".movie_image_list").append(tag);
             }
         }
     }
 })
+}
 
-
-function deleteDescImg(filename) {
+function deleteDescImg(filename, seq) {
 
     if (!confirm("설명 이미지를삭제하시겠습니까?\n(!주의 : 삭제된 데이터는 되롤릴 수 없습니다.)")) {
         return;
     }
-}
+
 $.ajax({
     url: "/images/delete/movie_desc/" + filename,
     type: "delete",
@@ -256,9 +242,9 @@ $.ajax({
         }
     }
 })
+}
 
-
-function saveDescText(order) {
+function saveDescText(order, seq) {
     // if($("#text"+order).prop("disabled")) {
     //     $("#text"+order+"+button").html("저장");
     //     $("#text"+order).prop("disabled", false);
@@ -270,12 +256,12 @@ function saveDescText(order) {
     // }
 }
 
-function deleteDescText(order) {
+function deleteDescText(order, seq) {
 
     if (!confirm("설명을 삭제하시겠습니까?\n(!주의 : 삭제된 데이터는 되롤릴 수 없습니다.)")) {
         return;
     }
-}
+
 movie_desc_list = movie_desc_list.filter((desc) => order != desc.order);
 $(".description_list").html("");
 for (let i = 0; i < movie_desc_list.length; i++) {
@@ -296,4 +282,4 @@ for (let i = 0; i < movie_desc_list.length; i++) {
             '</div>';
     }
     $(".description_list").append(tag);
-}
+}}

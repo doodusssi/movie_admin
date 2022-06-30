@@ -121,7 +121,7 @@ VALUES(#{tvi_mi_seq}, #{tvi_order}, #{tvi_file_name})
 <insert id="insertMovieImageInfo" parameterType="com.greenart.movie_admin.data.movie.MovieImageVO" useGeneratedKeys="true" keyProperty="mimg_seq">
 INSERT INTO movie_image
 (mimg_mi_seq, mimg_order, mimg_file_name, mimg_is_poster)
-VALUES(#{mimg_mi_seq}, #{mimg_order}, #{mimg_file_name}, #{mimg_is_poster});
+VALUES(#{mimg_mi_seq}, 0, #{mimg_file_name}, 0);
 </insert>
 <insert id="insertMovieStoryTextInfo" parameterType="com.greenart.movie_admin.data.movie.MovieStoryTextVO" useGeneratedKeys="true" keyProperty="mst_seq">
 INSERT INTO movie_story_text
