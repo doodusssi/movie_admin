@@ -1,8 +1,10 @@
 package com.greenart.movie_admin.api;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,6 +104,37 @@ public class MovieAPIController {
         
         return m;
     }
+    @PatchMapping("/update/story")
+    @Transactional
+    public Map<String, Object> patchMovieStory(@RequestBody List<MovieDescRequest> data, Integer seq){
+        Map<String, Object> m = new LinkedHashMap<String, Object>();
+        // for(String filename : movie_mapper.selectDescFileNameList(seq)){
+        //     String filepath = "/movie/movie_trailer/" +filename;
+        //     File deleteFile = new File(filepath);
+        //     if(deleteFile.exists()) {
+        //         deleteFile.delete();
+        //     }
+        // }
+
+
+        movie_mapper.deleteStoryImgInfoByMovieSeq(seq);
+        movie_mapper.deleteStoryTextInfoByMovieSeq(seq);
+
+        for(MovieDescRequest vo : data) {
+
+            if(vo.getType().equals("img")) {
+                movie_mapper.insertMovieStoryImg(seq,  vo.getContent(), vo.getOrder());
+            }
+            if(vo.getType().equals("text")){
+                movie_mapper.insertMovieStoryText(seq, vo.getContent(), vo.getOrder());
+            }
+        }
+        m.put("status", true);
+        m.put("message", "변경사항이 적용되었습니다.");
+        return m;
+        
+    }
+
     @DeleteMapping("/delete/{type}")
     public Map<String, Object> deleteMovieData(@PathVariable String type, @RequestParam Integer seq){
         Map<String, Object> m = new LinkedHashMap<String, Object>();
@@ -134,15 +167,15 @@ public class MovieAPIController {
         }
         return m;
     }
-@PutMapping("/add/image")
-public Map<String, Object> putMovieImage(@RequestBody MovieImageVO data) {
-    Map<String, Object> m = new LinkedHashMap<String, Object>();
-    movie_mapper.insertMovieImageInfo(data);
-    m.put("status",true);
-    m.put("seq", data.getMimg_seq());
-    m.put("message", "트레일러 영상 정보를 저장했습니다.");
-    return m;
-}
+    @PutMapping("/add/image")
+    public Map<String, Object> putMovieImage(@RequestBody MovieImageVO data) {
+        Map<String, Object> m = new LinkedHashMap<String, Object>();
+        movie_mapper.insertMovieImageInfo(data);
+        m.put("status",true);
+        m.put("seq", data.getMimg_seq());
+        m.put("message", "트레일러 영상 정보를 저장했습니다.");
+        return m;
+    }
 
     @PutMapping("/add/trailer")
     public Map<String, Object> putMovieTrailer(@RequestBody TrailerVideoInfoVO data){
@@ -152,6 +185,15 @@ public Map<String, Object> putMovieImage(@RequestBody MovieImageVO data) {
         m.put("seq", data.getTvi_seq());
         m.put("message", "트레일러 영상 정보를 저장했습니다.");
 
+        return m;
+    }
+
+    @PatchMapping("/update/basic")
+    public Map<String, Object> patchMovieBasicInfo(@RequestBody MovieInfoVO data) {
+        Map<String, Object> m = new LinkedHashMap<String, Object>();
+        movie_mapper.patchMovieBasicInfo(data);
+        m.put("status",true);
+        m.put("message", "영화 기본 정보를 수정했습니다.");
         return m;
     }
 }

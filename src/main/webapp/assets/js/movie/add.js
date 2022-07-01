@@ -158,38 +158,38 @@ function deleteTrailer(filename, seq) {
     if (!confirm("해당 트레일러 영상을 삭제하시겠습니까?\n(!주의 : 삭제된 데이터는 되롤릴 수 없습니다.)")) {
         return;
     }
-}
-$.ajax({
-    url: "/movies/delete/movie_trailer/" + filename,
-    type: "delete",
-    success: function (result) {
-        console.log(result);
-        movie_trailer_list = movie_trailer_list.filter((data) => data.file != filename);
-        $("#trailer_file_table tbody").html("");
-        for (let i = 0; i < movie_trailer_list.length; i++) {
-            movie_trailer_list[i].order = i + 1;
-            let tag =
-                '<tr>' +
-                '<td>' + (i + 1) + '</td>' +
-                '<td>' + movie_trailer_list[i].originFileName + '</td>' +
-                '<td>' + movie_trailer_list[i].ext + '</td>' +
-                '<td>' + movie_trailer_list[i].fileSize.toLocaleString() + 'Bytes</td>' +
-                '<td>' +
-                '<button class="delete_trailer" onclick=deleteTrailer("' + movie_trailer_list[i].file + '")>삭제</button>' +
-                '</td>' +
-                '</tr>';
-            $("#trailer_file_table tbody").append(tag);
+    $.ajax({
+        url: "/movies/delete/movie_trailer/" + filename,
+        type: "delete",
+        success: function (result) {
+            console.log(result);
+            movie_trailer_list = movie_trailer_list.filter((data) => data.file != filename);
+            $("#trailer_file_table tbody").html("");
+            for (let i = 0; i < movie_trailer_list.length; i++) {
+                movie_trailer_list[i].order = i + 1;
+                let tag =
+                    '<tr>' +
+                    '<td>' + (i + 1) + '</td>' +
+                    '<td>' + movie_trailer_list[i].originFileName + '</td>' +
+                    '<td>' + movie_trailer_list[i].ext + '</td>' +
+                    '<td>' + movie_trailer_list[i].fileSize.toLocaleString() + 'Bytes</td>' +
+                    '<td>' +
+                    '<button class="delete_trailer" onclick=deleteTrailer("' + movie_trailer_list[i].file + '")>삭제</button>' +
+                    '</td>' +
+                    '</tr>';
+                $("#trailer_file_table tbody").append(tag);
+            }
         }
-    }
-});
-
-$.ajax({
-    url: "/api/movie/delete/trailer?seq=" + seq,
-    type: "delete",
-    success: function (result) {
-        console.log(result);
-    }
-})
+    });
+    
+    $.ajax({
+        url: "/api/movie/delete/trailer?seq=" + seq,
+        type: "delete",
+        success: function (result) {
+            console.log(result);
+        }
+    })
+}
 
 
 
@@ -198,26 +198,26 @@ function deleteImg(filename) {
     if (!confirm("영화 이미지를 삭제하시겠습니까?\n(!주의 : 삭제된 데이터는 되롤릴 수 없습니다.)")) {
         return;
     }
-}
-$.ajax({
-    url: "/images/delete/movie/" + filename,
-    type: "delete",
-    success: function (result) {
-        alert(result.message);
-        if (result.status) {
-            movie_imgs = movie_imgs.filter((img) => filename != img);
-            $(".movie_image_list").html("");
-            for (let i = 0; i < movie_imgs.length; i++) {
-                let tag =
-                    '<div class="movie_img" filename="' + movie_imgs[i] + '">' +
-                    '<img src ="/images/movie/' + movie_imgs[i] + '">' +
-                    '<button onClick=deleteImg("' + movie_imgs[i] + '")>&times;</button>' +
-                    '</div>';
-                $(".movie_image_list").append(tag);
+    $.ajax({
+        url: "/images/delete/movie/" + filename,
+        type: "delete",
+        success: function (result) {
+            alert(result.message);
+            if (result.status) {
+                movie_imgs = movie_imgs.filter((img) => filename != img);
+                $(".movie_image_list").html("");
+                for (let i = 0; i < movie_imgs.length; i++) {
+                    let tag =
+                        '<div class="movie_img" filename="' + movie_imgs[i] + '">' +
+                        '<img src ="/images/movie/' + movie_imgs[i] + '">' +
+                        '<button onClick=deleteImg("' + movie_imgs[i] + '")>&times;</button>' +
+                        '</div>';
+                    $(".movie_image_list").append(tag);
+                }
             }
         }
-    }
-})
+    })
+}
 
 
 function deleteDescImg(filename) {
@@ -225,37 +225,37 @@ function deleteDescImg(filename) {
     if (!confirm("설명 이미지를삭제하시겠습니까?\n(!주의 : 삭제된 데이터는 되롤릴 수 없습니다.)")) {
         return;
     }
-}
-$.ajax({
-    url: "/images/delete/movie_desc/" + filename,
-    type: "delete",
-    success: function (result) {
-        alert(result.message);
-        if (result.status) {
-            movie_desc_list = movie_desc_list.filter((desc) => filename != desc.content);
-            $(".description_list").html("");
-            for (let i = 0; i < movie_desc_list.length; i++) {
-                movie_desc_list[i].order = i + 1;
-                let tag = ""
-                if (movie_desc_list[i].type == "img") {
-                    tag =
-                        '<div class="desc_img_box" filename="' + movie_desc_list[i].content + '">' +
-                        '<img src ="/images/movie_desc/' + movie_desc_list[i].content + '">' +
-                        '<button onClick=deleteDescImg("' + movie_desc_list[i].content + '")>&times;</button>' +
-                        '</div>';
+    $.ajax({
+        url: "/images/delete/movie_desc/" + filename,
+        type: "delete",
+        success: function (result) {
+            alert(result.message);
+            if (result.status) {
+                movie_desc_list = movie_desc_list.filter((desc) => filename != desc.content);
+                $(".description_list").html("");
+                for (let i = 0; i < movie_desc_list.length; i++) {
+                    movie_desc_list[i].order = i + 1;
+                    let tag = ""
+                    if (movie_desc_list[i].type == "img") {
+                        tag =
+                            '<div class="desc_img_box" filename="' + movie_desc_list[i].content + '">' +
+                            '<img src ="/images/movie_desc/' + movie_desc_list[i].content + '">' +
+                            '<button onClick=deleteDescImg("' + movie_desc_list[i].content + '")>&times;</button>' +
+                            '</div>';
+                    }
+                    if (movie_desc_list[i].type == "text") {
+                        tag = '<div class="desc_text_box">' +
+                            '<textarea cols="30" rows="10" id="text' + movie_desc_list[i].order + '" onkeyup=saveDescText(' + movie_desc_list[i].order + ')>' + movie_desc_list[i].content + '</textarea>' +
+                            // '<button class="desc_text_save" onclick=saveDescText('+movie_desc_list[i].order+')>저장</button>'+
+                            '<button class="desc_text_del" onclick=deleteDescText(' + movie_desc_list[i].order + ')>삭제</button>' +
+                            '</div>';
+                    }
+                    $(".description_list").append(tag);
                 }
-                if (movie_desc_list[i].type == "text") {
-                    tag = '<div class="desc_text_box">' +
-                        '<textarea cols="30" rows="10" id="text' + movie_desc_list[i].order + '" onkeyup=saveDescText(' + movie_desc_list[i].order + ')>' + movie_desc_list[i].content + '</textarea>' +
-                        // '<button class="desc_text_save" onclick=saveDescText('+movie_desc_list[i].order+')>저장</button>'+
-                        '<button class="desc_text_del" onclick=deleteDescText(' + movie_desc_list[i].order + ')>삭제</button>' +
-                        '</div>';
-                }
-                $(".description_list").append(tag);
             }
         }
-    }
-})
+    })
+}
 
 
 function saveDescText(order) {
@@ -275,25 +275,25 @@ function deleteDescText(order) {
     if (!confirm("설명을 삭제하시겠습니까?\n(!주의 : 삭제된 데이터는 되롤릴 수 없습니다.)")) {
         return;
     }
-}
-movie_desc_list = movie_desc_list.filter((desc) => order != desc.order);
-$(".description_list").html("");
-for (let i = 0; i < movie_desc_list.length; i++) {
-    movie_desc_list[i].order = i + 1;
-    let tag = ""
-    if (movie_desc_list[i].type == "img") {
-        tag =
-            '<div class="desc_img_box" filename="' + movie_desc_list[i].content + '">' +
-            '<img src ="/images/movie_desc/' + movie_desc_list[i].content + '">' +
-            '<button onClick=deleteDescImg("' + movie_desc_list[i].content + '")>&times;</button>' +
-            '</div>';
+    movie_desc_list = movie_desc_list.filter((desc) => order != desc.order);
+    $(".description_list").html("");
+    for (let i = 0; i < movie_desc_list.length; i++) {
+        movie_desc_list[i].order = i + 1;
+        let tag = ""
+        if (movie_desc_list[i].type == "img") {
+            tag =
+                '<div class="desc_img_box" filename="' + movie_desc_list[i].content + '">' +
+                '<img src ="/images/movie_desc/' + movie_desc_list[i].content + '">' +
+                '<button onClick=deleteDescImg("' + movie_desc_list[i].content + '")>&times;</button>' +
+                '</div>';
+        }
+        if (movie_desc_list[i].type == "text") {
+            tag = '<div class="desc_text_box">' +
+                '<textarea cols="30" rows="10" id="text' + movie_desc_list[i].order + '"onkeyup=saveDescText(' + movie_desc_list[i].order + ')>' + movie_desc_list[i].content + '</textarea>' +
+                // '<button class="desc_text_save" onclick=saveDescText('+movie_desc_list[i].order+')>저장</button>'+
+                '<button class="desc_text_del" onclick=deleteDescText(' + movie_desc_list[i].order + ')>삭제</button>' +
+                '</div>';
+        }
+        $(".description_list").append(tag);
     }
-    if (movie_desc_list[i].type == "text") {
-        tag = '<div class="desc_text_box">' +
-            '<textarea cols="30" rows="10" id="text' + movie_desc_list[i].order + '"onkeyup=saveDescText(' + movie_desc_list[i].order + ')>' + movie_desc_list[i].content + '</textarea>' +
-            // '<button class="desc_text_save" onclick=saveDescText('+movie_desc_list[i].order+')>저장</button>'+
-            '<button class="desc_text_del" onclick=deleteDescText(' + movie_desc_list[i].order + ')>삭제</button>' +
-            '</div>';
-    }
-    $(".description_list").append(tag);
 }

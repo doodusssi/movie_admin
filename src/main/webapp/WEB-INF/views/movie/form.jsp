@@ -113,6 +113,7 @@
                 <form id="desc_img_form">
                     <input type="file" name="file" id="desc_img_select" hidden accept="image/gif, image/jpeg, image/png">
                 </form>
+                <div class="description_list"></div>
                 <button id="img_add" onclick="document.getElementById('desc_img_select').click()">이미지 추가</button>
                 <button id="text_add">설명 추가</button>
                 

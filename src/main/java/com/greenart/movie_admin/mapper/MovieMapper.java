@@ -43,9 +43,15 @@ public interface MovieMapper {
     public void deleteMovieImageInfo(Integer seq);
     public void deleteMovieStoryTextInfo(Integer seq);
     public void deleteMovieStoryImageInfo(Integer seq);
-
+    
     public void insertMovieTrailerInfo(TrailerVideoInfoVO data);
     public void insertMovieImageInfo(MovieImageVO data);
     public void insertMovieStoryTextInfo(MovieStoryTextVO data);
     public void insertMovieStoryImageInfo(MovieStoryImageVO data);
+    
+    public void deleteStoryImgInfoByMovieSeq(Integer seq);
+    public void deleteStoryTextInfoByMovieSeq(Integer seq);
+
+    public List<String> selectDescFileNameList(Integer seq);
+    public void patchMovieBasicInfo(MovieInfoVO data);
 }
