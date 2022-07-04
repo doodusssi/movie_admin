@@ -21,6 +21,7 @@ import com.greenart.movie_admin.service.ActorService;
 @RequestMapping("/actor")
 public class ActorController {
     @Autowired ActorService actor_service;
+    @Autowired ActorMapper actor_mapper;
     @GetMapping("/list")
     public String getActorList(
     @RequestParam @Nullable String keyword,
@@ -41,7 +42,16 @@ public class ActorController {
     
     }
     @GetMapping("/movie_role")
-    public String getActorMovieRole(){
+    public String getActorMovieRole(Model model,
+    @RequestParam @Nullable String keyword,
+    @RequestParam @Nullable Integer page,
+    @RequestParam @Nullable String country){
+        if(page == null) page = 1;
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("page", page);
+        model.addAttribute("country", country);
+        model.addAttribute("list", actor_mapper.selectActorRoleCntInfo((page-1)*10, keyword, country));
+        model.addAttribute("pageCount", actor_mapper.selectActorRoleCntInfoPageCount(keyword, country));
         return "/actor/movie_role";
     }
 }

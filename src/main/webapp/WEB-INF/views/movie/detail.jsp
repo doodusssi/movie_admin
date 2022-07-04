@@ -96,8 +96,12 @@
                         </td>
                         <td>개봉일</td>
                         <td>
-                            <input type="text" id="opening_dt" value="<fmt:formatDate value="
-                                ${movieInfo.mi_opening_dt}" pattern="yyyy-MM-dd" />">
+                            <input type="text" id="opening_dt" 
+                            value=
+                            "<fmt:formatDate 
+                            value=
+                            "${movieInfo.mi_opening_dt}" 
+                            pattern="yyyy-MM-dd" />">
                         </td>
                         <td>상영여부</td>
                         <td>
@@ -202,15 +206,7 @@
                 </c:forEach>
             </div>
         </div>
-        <!-- <div class="button_area">
-            <c:if test="${mode == 'add'}">
-                <button id="save">저장</button>
-            </c:if>
-            <c:if test="${mode == 'modify'}">
-                <button id="modify">수정</button>
-            </c:if>
-            <button id="cancel">취소</button>
-        </div> -->
+       
     </main>
 </body>
 
