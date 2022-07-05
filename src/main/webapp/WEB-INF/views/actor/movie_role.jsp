@@ -42,8 +42,7 @@
                 </div>
             </div>
         </div>
-
-        <div class="actor_add_popup" style="display: none; border: 1px solid #000;">
+        <div class="actor_add_popup" style="display:none; border:1px solid #000">
             <div class="actor_add_form">
                 <p>배우</p>
                 <input type="text" id="actor_name">
@@ -51,14 +50,14 @@
                 <input type="text" id="actor_role_name">
                 <p>배역 유형</p>
                 <input type="radio" name="role_type" class="role_type" id="role1" value="1">
-                <lable for="role1">주연</lable>
-                <input type="radio" name="role_type" class="role_type" id="role2" value="2">
-                <lable for="role2">조연</lable>
+                <label for="role1">주연</label>
+                <input type="radio" name="role_type" class="role_type" id="role2" value="2" checked>
+                <label for="role2">조연</label>
                 <button id="actor_role_save">저장</button>
                 <button id="actor_role_cancel">닫기</button>
             </div>
         </div>
-        <div class="actor_modify_popup" style="display: none; border: 1px solid #000;">
+        <div class="actor_modify_popup" style="display:none; border:1px solid #000">
             <div class="actor_modify_form">
                 <p>배우</p>
                 <input type="text" id="actor_mod_name">
@@ -66,14 +65,14 @@
                 <input type="text" id="actor_mod_role_name">
                 <p>배역 유형</p>
                 <input type="radio" name="role_mod_type" class="role_mod_type" id="mod_role1" value="1">
-                <lable for="mod_role1">주연</lable>
-                <input type="radio" name="role_mod_type" class="role_mod_type" id="mod_role2" value="2">
-                <lable for="mod_role2">조연</lable>
+                <label for="mod_role1">주연</label>
+                <input type="radio" name="role_mod_type" class="role_mod_type" id="mod_role2" value="2" checked>
+                <label for="mod_role2">조연</label>
                 <button id="actor_mod_role_save">수정</button>
                 <button id="actor_mod_role_cancel">닫기</button>
             </div>
         </div>
-        <div class="actor_search_popup" style="display: none; border: 1px solid #000;">
+        <div class="actor_search_popup" style="display:none; border:1px solid #000">
             <div class="actor_search_form">
                 <h2>배우 검색</h2>
                 <input type="text" id="actor_search_keyword">
@@ -82,9 +81,7 @@
                     <table>
                         <thead>
                             <tr>
-                                <td>사진</td>
-                                <td>이름</td>
-                                <td>국적</td>
+                                <td>사진</td><td>이름</td><td>국적</td><td></td>
                             </tr>
                         </thead>
                         <tbody>
@@ -112,7 +109,7 @@
                     <a href="/actor/movie_role?page=${i}&keyword=${keyword}&country=${country}">${i}</a>
                 </c:if>
                 <c:if test="${country == null}">
-                    <a href="/actor/movie_role?page=${i}&keyword=${keyword}=${keyword}">${i}</a>
+                    <a href="/actor/movie_role?page=${i}&keyword=${keyword}">${i}</a>
                 </c:if>
             </c:forEach>
         </div>

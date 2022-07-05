@@ -1,4 +1,5 @@
-<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
@@ -7,7 +8,7 @@
     response.setDateHeader("Expires", 0);
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/assets/css/reset.css">
@@ -20,15 +21,48 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.theme.min.css" integrity="sha512-9h7XRlUeUwcHUf9bNiWSTO9ovOWFELxTlViP801e5BbwNJ5ir9ua6L20tEroWZdm+HFBAWBLx2qH4l4QHHlRyg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="/assets/js/common/util.js"></script>
     <title>Document</title>
+    <script>
+        $(function(){
+            let pageURL = location.href;
+            let pageURLSplit = pageURL.split("/");
+            console.log(pageURLSplit);
+            let realURL = "/";
+            for(let i=3; i<pageURLSplit.length; i++) {
+                realURL += pageURLSplit[i]
+                if(i != pageURLSplit.length-1) realURL += "/";
+            }
+            realURL = realURL.split("?")[0];
+            if(realURL == '/admin/list') {
+                $(".admin_list").addClass("current")
+            }
+            if(realURL == '/admin/history') {
+                $(".admin_history").addClass("current")
+            }
+            if(realURL == '/movie/genre') {
+                $(".movie_genre").addClass("current")
+            }
+            if(realURL == '/actor/list') {
+                $(".actor_list").addClass("current")
+            }
+            if(realURL == '/movie/list' || realURL == '/movie/add' || realURL == '/movie/detail') {
+                $(".movie_list").addClass("current")
+            }
+            if(realURL == '/actor/movie_role') {
+                $(".movie_role").addClass("current")
+            }
+        })
+    </script>
 </head>
 <body>
     <header>
-        <a href="/admin/list">관리자 계정 목록</a>
-        <a href="/admin/history">관리자 접속 기록</a>
-        <a href="/movie/genre">장르 정보 관리</a>
-        <a href="/actor/list">배우 정보 관리</a>
-        <a href="/movie/list">영화 정보 관리</a>
-        <a href="/actor/movie_role">영화 배역 정보 관리</a>
+        <div class="header_links">
+            <a class="admin_list" href="/account/list">관리자 계정 목록</a>
+            <a class="admin_history" href="/account/history">관리자 접속 기록</a>
+            <a class="movie_genre" href="/movie/genre">장르 정보 관리</a>
+            <a class="actor_list" href="/actor/list">배우 정보 관리</a>
+            <a class="movie_list" href="/movie/list">영화 정보 관리</a>
+            <a class="movie_role" href="/actor/movie_role">영화 배역 정보 관리</a>
+        </div>
     </header>
 </body>
 </html>

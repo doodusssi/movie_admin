@@ -16,7 +16,7 @@ $(function(){
         })
     })
     $(".modify").click(function(){
-        $(".popup_title").html("장르 정보 수정");
+        $(".popup_title").html("장르 정보 수정")
         $("#save").hide();
         $("#update").show();
         $("#update").attr("data-seq", $(this).attr("data-seq"));
@@ -48,15 +48,16 @@ $(function(){
             type:"patch",
             success:function(result) {
                 alert(result.message);
-                location.reload();
-            }
+                if(result.status)
+                    location.reload();
+            } 
         })
 
     })
     $("#add").click(function(){
-        $(".popup_title").html("장르 정보 추가");
+        $(".popup_title").html("장르 정보 추가")
         $(".insert_data_area").show();
-        $("#save").show();
+        $("#save").show()
         $("#update").hide();
     })
 

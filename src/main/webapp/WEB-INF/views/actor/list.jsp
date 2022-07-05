@@ -8,14 +8,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/assets/css/actor/list.css">
+    <script>
+        $(function(){
+            $(".actor_add_box").draggable({
+                handle:".popup_title"
+            })
+        })
+    </script>
     <script src="/assets/js/actor/list.js"></script>
 </head>
 <body>
     <main>
         <h1>영화 배우 관리</h1>
-        <button id="actor_add">배우 정보 추가</button>
+        <button id="actor_add">
+            <i class="fas fa-plus-square"></i>
+            <span>배우 정보 추가</span>
+        </button>
         <div class="actor_add_popup">
             <div class="actor_add_box">
+                <h1 class="popup_title">배우 정보 추가</h1>
                 <div class="actor_info">
                     <span>배우이름</span>
                     <input type="text" id="actor_name" placeholder="배우 이름을 입력하세요(한글)">
@@ -35,7 +46,7 @@
                     </div>
                 </div>
                 <button type="button" id="add_actor">배우정보 추가</button>
-                <button type="button" id="close_popup">취소</button>
+                <button type="button" id="close_popup">&times;</button>
             </div>
         </div>
         <div class="actor_list_header">
@@ -68,16 +79,14 @@
             </div>
         </div>
         <div class="actor_list_wrap">
-            <c:forEach items="${list}" var="item">
-            <a href="/actor/detail?actor_no=${item.cai_seq}" class="actor_list_item">
-                <div class="actor_img" style="background-image: url('/images/actor/${item.photo}');"></div>
-                <p> 
-                    <span>${item.cai_name}</span>
-                    <span>|</span>
-                    <span>${item.cai_country}</span>
-                </p>
-            </a>
-        </c:forEach>
+            <c:forEach items="${list}" var="item" varStatus="stat">
+                <a href="/actor/detail?actor_no=${item.cai_seq}" class="actor_list_item">
+                    <div class="actor_img" style="background-image: url('/images/actor/${item.photo}');"></div>
+                    <p class="country">${item.cai_country}</p>
+                    <p class="name">${item.cai_name}</p>
+                </a>
+                <c:if test="${stat.count % 5 == 0}"><br></c:if>
+            </c:forEach>
         </div>
         <div class="pager_area">
             <%--
@@ -86,8 +95,9 @@
             </c:forEach>
             --%>
             <c:forEach items="${pagerURL}" var="url" varStatus="stat">
-                <a href="${url}" <c:if test="${page == stat.count}">class="current"</c:if>
-                > ${stat.count}</a>
+                <a href="${url}" 
+                    <c:if test="${page == stat.count}">class="current"</c:if>
+                >${stat.count}</a>
             </c:forEach>
         </div>
     </main>

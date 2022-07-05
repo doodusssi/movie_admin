@@ -1,14 +1,19 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
+/*  http://meyerweb.com/eric/tools/css/reset/ 
+    v2.0 | 20110126
+    License: none (public domain)
 */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&family=Jua&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-/* font-family: 'Noto Sans KR', sans-serif;
-font-family: 'Noto Serif KR', serif; */
+@font-face {
+    font-family: 'LeferiPoint-WhiteObliqueA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-WhiteObliqueA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* font-family: 'Noto Sans KR', sans-serif; */
+/* font-family: 'Roboto', sans-serif; */
+/* font-family: 'LeferiPoint-WhiteObliqueA'; */
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -28,7 +33,7 @@ time, mark, audio, video {
 	border: 0;
 	font-size: 100%;
 	font: inherit;
-	font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
 	vertical-align: middle;
 }
 /* HTML5 display-role reset for older browsers */
@@ -53,8 +58,4 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-}
-
-input, button {
-	font-family: 'Noto Sans KR', sans-serif;
 }
