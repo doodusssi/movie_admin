@@ -57,13 +57,16 @@ values
 </foreach>
 </insert>
 <select id="selectMovieList" resultType="com.greenart.movie_admin.data.movie.MovieInfoVO">
-select a.*, b.genre_name, c.mimg_file_name as poster_img
-from movie_info a left outer join genre_info b 
-on a.mi_genre_seq = b.genre_seq 
-left outer join 
+select a.*,b.gr_name,
 (
-select*from movie_image where mimg_is_poster=1
-) c on a.mi_seq = c.mimg_mi_seq
+   SELECT mimg_file_name from movie_image
+   where mimg_mi_seq = a.mi_seq  and mimg_is_poster =1
+   order by mimg_seq desc 
+   limit 1
+)
+as poster_img
+from movie_info a left outer join genre_info b
+on a.mi_genre_seq = b.gr_seq;
 where mi_title like '%${keyword}%'
 <if test="country != null">
 and mi_country = #{country}
